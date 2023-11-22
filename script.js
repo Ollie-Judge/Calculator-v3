@@ -1,35 +1,29 @@
-// let num1 = document.getElementById("num1").value;
-// let num2 = document.getElementById("num2");
-let equals = document.getElementById("equals");
+const input = document.getElementById("calculationScreen");
+const buttons = document.querySelectorAll("button");
 
-let buttons = document.querySelectorAll("button");
+function calculate(expression) {
+  try {
+    return new Function("return " + expression)();
+  } catch (error) {
+    return error;
+  }
+}
 
-let operator;
-
-let result;
-
-// const doTheMath = equals.addEventListener("click", function () {
-//   console.log(Number(num1), num2);
-// });
+function operation(buttonValue) {
+  if (buttonValue === "C") {
+    input.value = "";
+  } else if (buttonValue === "DEL") {
+    input.value = input.value.slice(0, -1);
+  } else if (buttonValue === "=") {
+    input.value = calculate(input.value);
+  } else {
+    input.value += buttonValue;
+  }
+}
 
 buttons.forEach((button) => {
+  let buttonValue = button.innerText;
   button.addEventListener("click", function () {
-    console.log(`buttonclicked${button.value}`);
+    operation(buttonValue);
   });
 });
-
-const add = (num1, num2) => {
-  result = num1 + num2;
-};
-
-const subtract = (num1, num2) => {
-  result = num1 - num2;
-};
-
-const multiply = (num1, num2) => {
-  result = num1 * num2;
-};
-
-const divide = (num1, num2) => {
-  result = num1 / num2;
-};
